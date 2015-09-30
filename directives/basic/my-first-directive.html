@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="Description" content="Angular JS 1.x Learning - ">
+    <title>Angular JS 1.x</title>
+
+    <link rel="stylesheet" type="text/css" href="../../assets/bootstrap/bootstrap.css"/>
+    <script type="text/javascript" src="../../assets/angular/angular.js"></script>
+    <script type="text/javascript" src="app.js"></script>
+
+    <script src="../../assets/prism/prism.js"></script>
+    <script src="../../assets/prism/prism.css"></script>
+
+</head>
+<body class="container" ng-app="myApp">
+
+<h3>
+    <a href='../../index.html'> <img src="../../assets/images/back-arrow.png" alt="Back To Home"/> </a>
+    My First Directive
+</h3>
+<h5>In this example we are creating a simple directive which uses only 1 property called 'template'</h5>
+<hr/>
+
+<div class="container" ng-controller="Controller1 as Ctrl">
+    <div class="row">
+        <div class="col-md-8">
+            <h4>Code:</h4>
+
+            <pre>
+                <code class="language-javascript">
+
+                    /////////////
+                    //Angular App
+                    ////////////
+                    var myApp = angular.module("myApp", []);
+
+
+                    /////////////
+                    //Angular Controller
+                    ////////////
+                    myApp.controller('Controller1',[Controller1]);
+
+                    function Controller1(){
+
+                    }
+
+                    /////////////
+                    //Angular Directive
+                    ////////////
+                    myApp.directive('myFirstDirective',[MyFirstDirective]);
+
+                    function MyFirstDirective(){
+                        return{
+                              template:'<p>Hello From My First Directive</p>'
+                        }
+                    }
+
+                </code>
+              </pre>
+        </div>
+        <div class="col-md-4">
+            <h4>Result:</h4>
+            <my-first-directive></my-first-directive>
+        </div>
+
+    </div>
+</div>
+
+</body>
+</html>
