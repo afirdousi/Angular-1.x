@@ -19,9 +19,9 @@
 
 <h3>
     <a href='../../index.html'> <img src="../../assets/images/back-arrow.png" alt="Back To Home"/> </a>
-    My First Directive
+    Different Ways of Using Angular Directive in HTML
 </h3>
-<h5>In this example we are creating a simple directive which uses only 1 property called 'template'</h5>
+<h5>In this example we will learn how to use Angular Directive in 6 different ways within our HTML </h5>
 <hr/>
 
 <div class="container" ng-controller="Controller1 as Ctrl">
@@ -31,8 +31,33 @@
             <pre data-line>
                 <code class="language-markup">
 
-                    &lt;h4&gt; Result: &lt;/h4&gt;
-                    &lt; my-first-directive &gt; &lt;/my-first-directive&gt;
+                    &lt;ol&gt;
+                        &lt;!-- 1. --&gt;
+                        &lt;li&gt;
+                            &lt;my-first-directive&gt;&lt;/my-first-directive&gt;
+                        &lt;/li&gt;
+                        &lt;!-- 2. --&gt;
+                        &lt;li&gt;
+                            &lt;div my-first-directive&gt;&lt;/div&gt;
+                        &lt;/li&gt;
+                        &lt;!-- 3. --&gt;
+                        &lt;li&gt;
+                            &lt;div data-my-first-directive&gt;&lt;/div&gt;
+                        &lt;/li&gt;
+                        &lt;!-- 4. --&gt;
+                        &lt;li&gt;
+                            &lt;div x-my-first-directive&gt;&lt;/div&gt;
+                        &lt;/li&gt;
+                        &lt;!-- 5. --&gt;
+                        &lt;li&gt;
+                            &lt;div my:first:directive&gt;&lt;/div&gt;
+                        &lt;/li&gt;
+                        &lt;!-- 6. --&gt;
+                        &lt;li&gt;
+                            &lt;div my_first_directive&gt;&lt;/div&gt;
+                        &lt;/li&gt;
+                    &lt;/ol&gt;
+                   
                 </code>
             </pre>
 
@@ -72,7 +97,36 @@
         </div>
         <div class="col-md-4">
             <h4>Result:</h4>
-            <my-first-directive></my-first-directive>
+
+            <ol>
+                <!-- 1. -->
+                <li>
+                    <my-first-directive></my-first-directive>
+                </li>
+                <!-- 2. -->
+                <li>
+                    <div my-first-directive></div>
+                </li>
+                <!-- 3. -->
+                <li>
+                    <div data-my-first-directive></div>
+                </li>
+                <!-- 4. -->
+                <li>
+                    <div x-my-first-directive></div>
+                </li>
+                <!-- 5. -->
+                <li>
+                    <div my:first:directive></div>
+                </li>
+                <!-- 6. -->
+                <li>
+                    <div my_first_directive></div>
+                </li>
+            </ol>
+
+
+
         </div>
 
     </div>
