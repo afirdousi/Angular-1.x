@@ -29,7 +29,7 @@
         <div class="col-md-8">
             <h4>HTML:</h4>
             <pre data-line>
-                <code class="language-markup">
+                <ul class="language-markup">
 
                     &lt;ol&gt;
                         &lt;!-- 1. --&gt;
@@ -57,7 +57,27 @@
                             &lt;div my_first_directive&gt;&lt;/div&gt;
                         &lt;/li&gt;
                     &lt;/ol&gt;
-                   
+                    &lt;li&gt;
+                        &lt;!-- 7. --&gt;
+                        &lt;h4&gt;Attribute Form (the default)&lt;/h4&gt;
+                        &lt;div my-first-directive&gt;&lt;/div&gt;
+                    &lt;/li&gt;
+                    &lt;li&gt;
+                        &lt;!-- 8. --&gt;
+                        &lt;h4&gt;Element Form&lt;/h4&gt;
+                        &lt;my-first-directive&gt;&lt;/my-first-directive&gt;
+                    &lt;/li&gt;
+                    &lt;li&gt;
+                        &lt;!-- 9. --&gt;
+                        &lt;h4&gt;Class Form&lt;/h4&gt;
+                        &lt;div class="my-first-directive"&gt;&lt;/div&gt;
+                    &lt;/li&gt;
+                    &lt;li&gt;
+                        &lt;!-- 10 --&gt;
+                        &lt;h4&gt;Comment form&lt;/h4&gt;
+                        &lt;!--my-first-directive--&gt;
+                    &lt;/li&gt;
+                    &lt;/ol&gt;
                 </code>
             </pre>
 
@@ -152,6 +172,7 @@
                     </div>
                 </li>
                 <li>
+                    <!-- 10 -->
                     <h4>Comment form</h4>
                    <div class="alert alert-danger">
                        <b>Does not work any more.</b>Using directive in the form of comments is not recommeded and is taken off from the current versions
