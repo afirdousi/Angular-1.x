@@ -21,6 +21,7 @@
 
     function MyFirstDirective(){
         return{
+            restrict:'EAC',
             template:'<p>Hello From My First Directive</p>'
         }
     }

@@ -97,7 +97,6 @@
         </div>
         <div class="col-md-4">
             <h4>Result:</h4>
-
             <ol>
                 <!-- 1. -->
                 <li>
@@ -123,10 +122,43 @@
                 <li>
                     <div my_first_directive></div>
                 </li>
+                <li>
+                    <!-- 7. -->
+                    <h4>Attribute Form (the default)</h4>
+                    <div my-first-directive></div>
+                </li>
+                <li>
+                    <!-- 8. -->
+                    <h4>Element Form</h4>
+                    <my-first-directive></my-first-directive>
+                </li>
+                <li>
+                    <!-- 9. -->
+                    <h4>Class Form</h4>
+                    <div class="my-first-directive"></div>
+                    <div class="alert alert-info">
+                        <b>For this to work, you have to add 'restrict' property to the directive</b>
+                        <pre>
+        return{
+            restrict:'EAC',
+                ...
+        }
+                        </pre>
+
+                        'E' means use as element, 'A' means use as attribute, 'C' means use as class. <br/>
+                        E & A are default values. If you want to use directive as a class you have to use 'restrict'
+                        property and mention 'C' in it(and also EA unless you not only want it for directive to be used as class only)
+
+                    </div>
+                </li>
+                <li>
+                    <h4>Comment form</h4>
+                   <div class="alert alert-danger">
+                       <b>Does not work any more.</b>Using directive in the form of comments is not recommeded and is taken off from the current versions
+                   </div>
+                </li>
+                
             </ol>
-
-
-
         </div>
 
     </div>
