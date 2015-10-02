@@ -35,6 +35,14 @@
         }
     }
 
+    myApp.directive('myInpageTemplateDirective',[MyInpageTemplateDirective]);
+
+    function MyInpageTemplateDirective(){
+        return {
+            templateUrl:'simple-directive-template.html'
+        }
+    }
+
 
 
 
