@@ -12,7 +12,6 @@
     ////////////
     myApp.controller('Controller1',[Controller1]);
     function Controller1(){
-
     }
 
     /////////////
@@ -23,6 +22,14 @@
     function MyFirstDirective(){
         return{
             template:'<p>Hello From My First Directive</p>'
+        }
+    }
+
+    myApp.directive('myDirectiveWithExternalTemplate',[MyDirectiveWithExternalTemplate]);
+
+    function MyDirectiveWithExternalTemplate(){
+        return {
+            templateUrl:'simple-directive-template.html'
         }
     }
 

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="Description" content="Angular JS 1.x Learning - ">
+    <title>Angular JS 1.x</title>
+
+    <link rel="stylesheet" type="text/css" href="../../assets/bootstrap/bootstrap.css"/>
+    <script type="text/javascript" src="../../assets/angular/angular.js"></script>
+    <script type="text/javascript" src="app.js"></script>
+
+    <script src="../../assets/prism/prism.js"></script>
+    <script src="../../assets/prism/prism.css"></script>
+
+</head>
+<body class="container" ng-app="myApp">
+
+<h3>
+    <a href='../../index.html'> <img src="../../assets/images/back-arrow.png" alt="Back To Home"/> </a>
+   Using External Templates in a Directive
+</h3>
+<h5>In this example we are creating a simple directive using 'templateUrl' property. Template URL property fetches
+a html from any external link.</h5>
+<hr/>
+
+<div class="container" ng-controller="Controller1 as Ctrl">
+    <div class="row">
+        <div class="col-md-8">
+            <h4>HTML:</h4>
+            <pre data-line>
+                <code class="language-markup">
+
+                    &lt;h4&gt;Result:&lt;/h4&gt;
+                    &lt;my-directive-with-external-template&gt;&lt;/my-directive-with-external-template&gt;
+                </code>
+            </pre>
+
+            <h4>JavaScript:</h4>
+
+            <pre data-line>
+                <code class="language-javascript">
+
+            /////////////
+            //Angular App
+            ////////////
+            var myApp = angular.module("myApp", []);
+
+
+            /////////////
+            //Angular Controller
+            ////////////
+            myApp.controller('Controller1',[Controller1]);
+
+            function Controller1(){
+
+            }
+
+            /////////////
+            //Angular Directive
+            ////////////
+            myApp.directive('myDirectiveWithExternalTemplate',[MyDirectiveWithExternalTemplate]);
+
+            function MyDirectiveWithExternalTemplate(){
+                    return {
+                         templateUrl:'simple-directive-template.html'
+                    }
+            }
+
+                </code>
+              </pre>
+
+            <div class="alert alert-success">
+                Checkout the use of <b>templateUrl</b> property we are returning from directive
+
+            </div>
+            <div class="alert alert-info">
+                What will happen if I try to use <br/>
+                <pre>
+                    return {
+                        templateUrl:'http://www.google.com'
+                    }
+                </pre>
+                instead of poitning to an internal html page I am now pointing to an external website
+                which is, obviously, outside of my own domain.
+
+                If you try to do this ^ , you will see somethign similar to this:
+                <div class="alert alert-danger">
+                    <img src="../../assets/images/loading-external-tempaltes.png" alt="Strict Contextual Escaping" style="width: 100%;" />
+                    <b>We will talk about "Strict Contextual Escaping" and how to solve this problem
+                    in advance directive topics</b>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <h4>Result:</h4>
+            <my-directive-with-external-template></my-directive-with-external-template>
+        </div>
+
+
+
+
+    </div>
+</div>
+
+</body>
+</html>
