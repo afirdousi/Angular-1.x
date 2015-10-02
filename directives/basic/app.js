@@ -21,8 +21,9 @@
 
     function MyFirstDirective(){
         return{
-            restrict:'EAC',
-            template:'<p>Hello From My First Directive</p>'
+            restrict:'EACM',
+            template:'<p>Hello From My First Directive</p>',
+            replace:true
         }
     }
 

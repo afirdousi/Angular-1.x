@@ -75,7 +75,7 @@
                     &lt;li&gt;
                         &lt;!-- 10 --&gt;
                         &lt;h4&gt;Comment form&lt;/h4&gt;
-                        &lt;!--my-first-directive--&gt;
+                        &lt;!-- directive : my-first-directive--&gt;
                     &lt;/li&gt;
                     &lt;/ol&gt;
                 </code>
@@ -108,7 +108,9 @@
 
                     function MyFirstDirective(){
                         return{
-                              template:'<p>Hello From My First Directive</p>'
+                              restrict:'EACM', 
+                              template:'<p>Hello From My First Directive</p>',
+                              replace:true //used only when you use directive in comment form
                         }
                     }
 
@@ -157,7 +159,7 @@
                     <h4>Class Form</h4>
                     <div class="my-first-directive"></div>
                     <div class="alert alert-info">
-                        <b>For this to work, you have to add 'restrict' property to the directive</b>
+                        <b>For this to work, you have to add 'restrict' property to the directive with value 'C'</b>
                         <pre>
         return{
             restrict:'EAC',
@@ -174,9 +176,20 @@
                 <li>
                     <!-- 10 -->
                     <h4>Comment form</h4>
-                   <div class="alert alert-danger">
-                       <b>Does not work any more.</b>Using directive in the form of comments is not recommeded and is taken off from the current versions
-                   </div>
+                    <!-- directive: my-first-directive -->
+                    <div class="alert alert-info">
+                        <b>For this to work, you have to add 'restrict' property to the directive with value 'M'</b>
+                        One extra thing that you need to do for using directive like this is to add a replace
+                        property in directive and pass it 'true', which means replace the comment with the directive html
+                        <pre>
+        return{
+            restrict:'EACM',
+            replace:true
+        }
+                        </pre>
+
+
+                    </div>
                 </li>
                 
             </ol>
