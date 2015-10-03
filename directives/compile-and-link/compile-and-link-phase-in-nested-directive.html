@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="Description" content="Angular JS 1.x Learning - ">
+    <title>Angular JS 1.x</title>
+
+    <link rel="stylesheet" type="text/css" href="../../assets/bootstrap/bootstrap.css"/>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script type="text/javascript" src="../../assets/angular/angular.js"></script>
+    <script type="text/javascript" src="app.js"></script>
+
+    <script src="../../assets/prism/prism.js"></script>
+    <script src="../../assets/prism/prism.css"></script>
+
+</head>
+<body class="container" ng-app="myApp">
+
+<h3>
+    <a href='../../index.html'> <img src="../../assets/images/back-arrow.png" alt="Back To Home"/> </a>
+    Compile & Link Function in Angular JS 1.x Directives
+</h3>
+<h5>In this example we will try to explore compile and link phases and the order in which they run</h5>
+<hr/>
+
+<div class="container" ng-controller="Controller1 as Ctrl">
+    <div class="row">
+        <div class="col-md-8">
+            <h4>HTML:</h4>
+            <pre data-line>
+                <code class="language-markup">
+                    &lt;h4&gt;Result:&lt;/h4&gt;
+                    &lt;my-omg-directive1&gt;
+                        &lt;my-omg-directive2&gt;
+                            &lt;my-omg-directive3&gt;
+
+                            &lt;/my-omg-directive3&gt;
+                        &lt;/my-omg-directive2&gt;
+                    &lt;/my-omg-directive1&gt;
+                </code>
+            </pre>
+
+            <h4>JavaScript:</h4>
+
+            <pre data-line>
+                <code class="language-javascript">
+
+            /////////////
+            //Angular App
+            ////////////
+            var myApp = angular.module("myApp", []);
+
+
+            /////////////
+            //Angular Controller
+            ////////////
+            myApp.controller('Controller1',[Controller1]);
+            function Controller1(){
+            }
+
+            /////////////
+            //Angular Directive
+            ////////////
+
+            myApp.directive('myOmgDirective1',[MyOMGDirective1]);
+
+                function MyOMGDirective1(){
+                    return{
+                    template:'<div ng-transclude >Hello I am OMG#1 </div>',
+                    transclude:true,
+                            compile:function(tempElement,tempAttribute){
+
+                            console.log("OMG 1 : Compile Function Called");
+
+                                return {
+                                        pre:function(scope,instElement,instAttribute){
+                                             console.log("OMG 1 : Pre Link Function Called");
+                                         },
+                                        post:function(scope,instElement,instAttribute) {
+                                              console.log("OMG 1 : Post Link Function Called");
+                                         }
+                                 }
+                            }
+                     }
+                }
+
+            myApp.directive('myOmgDirective2',[MyOMGDirective2]);
+
+                function MyOMGDirective2(){
+                    return{
+                    template:'<div ng-transclude >Hello I am OMG#2</div>',
+                    transclude:true,
+                        compile:function(tempElement,tempAttribute){
+
+                            console.log("OMG 2 : Compile Function Called");
+
+                                    return {
+                                        pre:function(scope,instElement,instAttribute){
+                                            console.log("OMG 2 : Pre Link Function Called");
+                                    },
+                                        post:function(scope,instElement,instAttribute) {
+                                            console.log("OMG 2 : Post Link Function Called");
+                                    }
+                            }
+                        }
+                    }
+                }
+
+            myApp.directive('myOmgDirective3',[MyOMGDirective3]);
+
+                function MyOMGDirective3(){
+                    return{
+                    template:'<div ng-transclude >Hello I am OMG#3 </div>',
+                    transclude:true,
+                        compile:function(tempElement,tempAttribute){
+
+                            console.log("OMG 3 : Compile Function Called");
+
+                                        return {
+                                            pre:function(scope,instElement,instAttribute){
+                                                console.log("OMG 3 : Pre Link Function Called");
+                                        },
+                                             post:function(scope,instElement,instAttribute) {
+                                                 console.log("OMG 3 : Post Link Function Called");
+                                        }
+                            }
+                        }
+                    }
+                }
+
+                </code>
+              </pre>
+            <div class="alert alert-success">
+                <b>Note:</b> In nested directives, you need to have <b>transclude</b> set to 'true' in every outer directive
+                and <b>ng-transclude</b> within the template of every outer directive which will be replaced by the template of immediate inner directive.
+            </div>
+            <div class="alert alert-info">
+                We will discuss and explore <b>transclusion</b> in greater details in a separate experiment. I am not including the details here.
+            </div>
+        </div>
+        <div class="col-md-4">
+            <h4>Result:</h4>
+            <my-omg-directive1>
+                <my-omg-directive2>
+                    <my-omg-directive3>
+
+                    </my-omg-directive3>
+                </my-omg-directive2>
+            </my-omg-directive1>
+        </div>
+
+    </div>
+</div>
+
+</body>
+</html>
