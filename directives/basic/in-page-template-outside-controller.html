@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="Description" content="Angular JS 1.x Learning - ">
+    <title>Angular JS 1.x</title>
+
+    <link rel="stylesheet" type="text/css" href="../../assets/bootstrap/bootstrap.css"/>
+    <script type="text/javascript" src="../../assets/angular/angular.js"></script>
+    <script type="text/javascript" src="app.js"></script>
+
+    <script src="../../assets/prism/prism.js"></script>
+    <script src="../../assets/prism/prism.css"></script>
+
+</head>
+<body class="container" ng-app="myApp">
+
+<h3>
+    <a href='../../index.html'> <img src="../../assets/images/back-arrow.png" alt="Back To Home"/> </a>
+    Inpage Template using ng-template talking to Controllers
+</h3>
+<h5>In this example we are creating a directive using ng-template reading variables of a outside controller</h5>
+<hr/>
+
+<div class="container" ng-controller="Controller2 as Ctrl">
+    <div class="row">
+        <div class="col-md-8">
+            <h4>HTML:</h4>
+            <pre data-line>
+                <code class="language-markup">
+
+                    &lt;body&gt;
+                    .... ...
+
+                        &lt;div class="container" ng-controller="Controller2 as Ctrl"&gt;
+
+                            &lt;script type="text/ng-template" id="simple-directive-template.html"&gt;
+
+                                &lt;h5&gt;Check this out:&lt;/h5&gt;
+                                &lt;p&gt;Message from Controller: <b>{{ </b> Ctrl.message <b> }}</b> &lt;/p&gt;
+
+                            &lt;/script&gt;
+
+                            &lt;h4&gt;Result:&lt;/h4&gt;
+                            &lt;my-inpage-template-directive&gt;&lt;/my-inpage-template-directive&gt;
+
+                        &lt;/div&gt;
+
+                    ... ...
+
+                    &lt;/body&gt;
+                </code>
+            </pre>
+
+            <h4>JavaScript:</h4>
+
+            <pre data-line>
+                <code class="language-javascript">
+
+                    /////////////
+                    //Angular App
+                    ////////////
+                    var myApp = angular.module("myApp", []);
+
+
+                    /////////////
+                    //Angular Controller
+                    ////////////
+                    myApp.controller('Controller2',[Controller2]);
+
+                    function Controller2(){
+                        this.message = "Hello from Controller 2";
+                    }
+
+                    /////////////
+                    //Angular Directive
+                    ////////////
+                    myApp.directive('myInpageTemplateDirective',[MyInpageTemplateDirective]);
+
+                    function MyInpageTemplateDirective(){
+                        return {
+                             templateUrl:'simple-directive-template.html'
+                        }
+                    }
+
+                </code>
+              </pre>
+        </div>
+        <div class="col-md-4">
+
+            <script type="text/ng-template" id="simple-directive-template.html">
+
+                <h5>Check this out:</h5>
+                <p>Message from Controller: {{ Ctrl.message }}</p>
+
+            </script>
+
+            <h4>Result:</h4>
+            <my-inpage-template-directive></my-inpage-template-directive>
+        </div>
+
+    </div>
+</div>
+
+</body>
+</html>

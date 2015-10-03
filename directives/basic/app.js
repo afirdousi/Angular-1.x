@@ -14,6 +14,12 @@
     function Controller1(){
     }
 
+    myApp.controller('Controller2',[Controller2]);
+    function Controller2(){
+        this.message = "Hello from Controller 2";
+    }
+
+
     /////////////
     //Angular Directive
     ////////////
