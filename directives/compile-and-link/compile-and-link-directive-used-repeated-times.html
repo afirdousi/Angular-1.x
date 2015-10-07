@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="Description" content="Angular JS 1.x Learning - ">
+    <title>Angular JS 1.x</title>
+
+    <link rel="stylesheet" type="text/css" href="../../assets/bootstrap/bootstrap.css"/>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script type="text/javascript" src="../../assets/angular/angular.js"></script>
+    <script type="text/javascript" src="app.js"></script>
+
+    <script src="../../assets/prism/prism.js"></script>
+    <script src="../../assets/prism/prism.css"></script>
+
+</head>
+<body class="container" ng-app="myApp">
+
+<h3>
+    <a href='../../index.html'> <img src="../../assets/images/back-arrow.png" alt="Back To Home"/> </a>
+    Compile & Link Phases When A Directive is Used Multiple Times
+</h3>
+<h5>In this example we will demonstrate  how many times compile,pre link and post link functions are called when a directive is used multiple times in different ways</h5>
+<hr/>
+
+<div class="container" ng-controller="Controller1 as Ctrl">
+    <div class="row">
+        <div class="col-md-8">
+            <h4>HTML:</h4>
+            <pre data-line>
+                <code class="language-markup">
+                    &lt;h4&gt;Result:&lt;/h4&gt;
+
+                    //One way of using a directive multiple times
+
+                    &lt;my-omg-directive1&gt;&lt;/my-omg-directive1&gt;
+                    &lt;my-omg-directive1&gt;&lt;/my-omg-directive1&gt;
+                    &lt;my-omg-directive1&gt;&lt;/my-omg-directive1&gt;
+
+                    //Another way of using a directive multiple times
+
+                    &lt;div ng-repeat="v in [1,2,3]" my-omg-directive2&gt;&lt;/div&gt;
+                </code>
+            </pre>
+
+            <h4>JavaScript:</h4>
+
+            <pre data-line>
+                <code class="language-javascript">
+
+            /////////////
+            //Angular App
+            ////////////
+            var myApp = angular.module("myApp", []);
+
+
+            /////////////
+            //Angular Controller
+            ////////////
+            myApp.controller('Controller1',[Controller1]);
+            function Controller1(){
+            }
+
+
+            myApp.directive('myOmgDirective1',[MyOMGDirective1]);
+
+            function MyOMGDirective1(){
+                return
+                    {
+                        template:'<p>Hello I am OMG#1 <div ng-transclude></div> </p>',
+                        compile:function(tempElement,tempAttribute){
+
+                                console.log("OMG 1 : Compile Function Called");
+
+                            return {
+                                    pre:function(scope,instElement,instAttribute){
+                                        console.log("OMG 1 : Pre Link Function Called");
+                                    },
+                                    post:function(scope,instElement,instAttribute) {
+                                        console.log("OMG 1 : Post Link Function Called");
+                                    }
+                            }
+                        }
+                    }
+            }
+
+            myApp.directive('myOmgDirective2',[MyOMGDirective2]);
+
+            function MyOMGDirective2(){
+                return{
+                        template:'<p>Hello I am OMG#2 <div ng-transclude></div> </p>',
+                        compile:function(tempElement,tempAttribute){
+
+                                console.log("OMG 2 : Compile Function Called");
+
+                            return {
+                                    pre:function(scope,instElement,instAttribute){
+                                        console.log("OMG 2 : Pre Link Function Called");
+                                    },
+                                    post:function(scope,instElement,instAttribute) {
+                                        console.log("OMG 2 : Post Link Function Called");
+                                    }
+                            }
+                        }
+                }
+            }
+
+
+                </code>
+              </pre>
+        </div>
+        <div class="col-md-4">
+            <h4>Result:</h4>
+            <b>Used 3 time individually</b>
+            <hr/>
+            <small>When used 3 times individually, the directive will examine the outside scope 3 times, hence will call the compile function for each of the directive instance</small>
+            <br/>
+            <div class="alert alert-success">
+                <my-omg-directive1></my-omg-directive1>
+                <my-omg-directive1></my-omg-directive1>
+                <my-omg-directive1></my-omg-directive1>
+
+            </div>
+            <b>Used 3 times on a ng-repeat</b>
+            <hr/>
+            <small>Since we will iterate over an array of 3 itmes with ng-repeat and use directive each time, the outer scope of our directive does not change, hence the compile will be called only once and not 3 times.</small>
+            <div class="alert alert-success">
+                <div ng-repeat="v in [1,2,3]" my-omg-directive2></div>
+            </div>
+            <br/>
+            and here is result snapshot...
+            <img src="../../assets/images/compile-link-phase-directive-used-multiple-times.png" alt="Compile & Link Phases" width="100%"/>
+        </div>
+
+    </div>
+</div>
+
+</body>
+</html>
