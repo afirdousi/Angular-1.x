@@ -122,6 +122,93 @@
         }
     }
 
+    myApp.directive('extendedFormDirective', [MyExtendedFormDirective]);
+    function MyExtendedFormDirective() {
+        return {
+            compile: function(tElement, tAttrs) {
+                angular
+                    .element("<p>Simple Compile/Link Directive : Extended Form</p>")
+                    .appendTo(tElement);
+
+                return {
+                    pre: function(scope, iElement, iAttrs) {
+                    },
+                    post: function(scope, iElement, iAttrs) {}
+                }
+            }
+        };
+    }
+
+
+    myApp.directive('postLinkFormDirective', [MyPostLinkFormDirective]);
+    function MyPostLinkFormDirective() {
+        return {
+            compile: function(tElement, tAttrs) {
+                angular
+                    .element("<p>Simple Compile/Link Directive : Post Link Form</p>")
+                    .appendTo(tElement);
+                return function(scope, iElement, iAttrs) {};
+            }
+        };
+    }
+
+    myApp.directive('linkOnlyFormDirective', [MyLinkOnlyFormDirective]);
+    function MyLinkOnlyFormDirective() {
+        return {
+            template: '<p>Simple Compile/Link Directive : Link Only</p>',
+            link: function(scope, iElement, iAttrs) {}
+        };
+    }
+
+
+    myApp.directive('templateOnlyFormDirective', [MyTemplateOnlyFormDirective]);
+    function MyTemplateOnlyFormDirective() {
+        return {
+            template: '<p>Simple Compile/Link Directive : Template Only</p>'
+        };
+    }
+
+
+    var myNewApp = angular.module('myNewApp',[])
+                            .config(function($sceProvider){
+
+
+        });
+
+
+
+
+   /* myApp.directive('externalTemplateFormDirective', [MyExternalTemplateFormDirective]);
+    function MyExternalTemplateFormDirective() {
+        return {
+            templateUrl: 'http://www.google.com'
+        };
+    }*/
+
+    myApp.directive('externalTemplateFormDirective',function($http){
+
+        return{
+
+            compile:function(tElement,tAttrs){
+
+                $http.get(tAttrs.templateurl)
+                    .success(function(html){
+
+                        tElement.html(html);
+
+                    });
+
+            },
+
+            link:function(scope,ele,attrs){
+
+
+
+            }
+        }
+
+
+    });
 
 
 

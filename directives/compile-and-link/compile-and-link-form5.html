@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="Description" content="Angular JS 1.x Learning - ">
+    <title>Angular JS 1.x</title>
+
+    <link rel="stylesheet" type="text/css" href="../../assets/bootstrap/bootstrap.css"/>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script type="text/javascript" src="../../assets/angular/angular.js"></script>
+    <script type="text/javascript" src="app.js"></script>
+
+    <script src="../../assets/prism/prism.js"></script>
+    <script src="../../assets/prism/prism.css"></script>
+
+</head>
+<body class="container" ng-app="myApp">
+
+<h3>
+    <a href='../../index.html'> <img src="../../assets/images/back-arrow.png" alt="Back To Home"/> </a>
+    Compile & Link Function in Angular JS 1.x Directives : External Template from same origin
+</h3>
+<h5>In this example we are creating a simple directive using only template property. This is helpful when all what we need is a dynamic(use templateUrl) or static html from the directive. </h5>
+<hr/>
+
+<div class="container" ng-controller="Controller1 as Ctrl">
+    <div class="row">
+        <div class="col-md-8">
+            <h4>HTML:</h4>
+            <pre data-line>
+                <code class="language-markup">
+                    &lt;h4&gt;Result:&lt;/h4&gt;
+
+                    &lt;external-template-form-directive templateUrl="views/sample-view-1.html"&gt;
+                    &lt;/external-template-form-directive&gt;
+                </code>
+            </pre>
+            
+            <h4>Project Structure</h4>
+            <img src="../../assets/images/project-structure-for-directive-view.PNG" alt="Check location of this html and sample view downloaded dynamically" style="100%"/>
+
+            <h4>JavaScript:</h4>
+
+            <pre data-line>
+                <code class="language-javascript">
+
+            /////////////
+            //Angular App
+            ////////////
+            var myApp = angular.module("myApp", []);
+
+
+            /////////////
+            //Angular Controller
+            ////////////
+            myApp.controller('Controller1',[Controller1]);
+            function Controller1(){
+            }
+
+            /////////////
+            //Angular Directive
+            ////////////
+            myApp.directive('externalTemplateFormDirective', [MyTemplateOnlyFormDirective]);
+
+            myApp.directive('externalTemplateFormDirective',function($http){
+
+                return{
+
+                    compile:function(tElement,tAttrs){
+
+                        $http.get(tAttrs.templateurl)
+                                .success(function(html){
+                                         tElement.html(html);
+                                });
+
+                    },
+
+                    link:function(scope,ele,attrs){
+
+                    }
+                }
+
+            });
+
+                </code>
+              </pre>
+
+            <div class="alert alert-info">
+                Here we are dynamically loading a template passed by user to directive in the form of attribute on the directive. The template resides in our own application.
+                <b>What if you want to download external templates dynamically? Templates that reside outside of your application on some other domain? Read below:</b>
+            </div>
+
+            <div class="alert alert-danger">
+                If you do turn the Stirct Contextual Escaping(SCE) mode ON, which is ON by default, you will not be able to download templates from outside of your application domain.
+                For details of what will happen, <a href="../basic/using-external-templates.html">Click here...</a>
+                <br/><br/>
+                <p>
+                   <h4>Details from Angular Website</h4>
+                AngularJS' Strict Contextual Escaping (SCE) mode (enabled by default) has blocked loading a resource from an insecure URL.
+                <br/>
+
+                Typically, this would occur if you're attempting to load an Angular template from an untrusted source. It's also possible that a custom directive threw this error for a similar reason.
+                <br/><br/>
+                Angular only loads templates from trusted URLs (by calling $sce.getTrustedResourceUrl on the template URL).
+                <br/>
+                By default, only URLs that belong to the same origin are trusted. These are urls with the same domain, protocol and port as the application document.
+                </p>
+            </div>
+            <div class="alert alert-success">
+                <h3>The Solution:</h3>
+                <p>There are 2 ways to solve this</p>
+                <ol>
+                    <li>
+                        Adjust Whitelist/Blacklist
+                    </li>
+                    <li>
+                        Wrap the URL with a call to $sce.trustAsResourceUrl <b>We are using this one here</b>
+                    </li>
+                </ol>
+            </div>
+            <div class="alert alert-info">
+                There are other advance topics related to loading templates in directive.
+                <ol>
+                    <li>
+                        <a href="https://github.com/angular/angular.js/issues/1039">Loading Dynamic Templates from same origin (Check this link for better ways than the one implemented here)</a>
+                    </li>
+                    <li>
+                        Loading Dynamic Templates from external origin
+                    </li>
+                    <li>
+                        Use of $templateCache, $compile in compile function
+                    </li>
+                    <li>
+                        Use of ng-include
+                    </li>
+                </ol>
+                <p>
+                    We will discuss the above in more advance versions of directives.
+                </p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <h4>Result:</h4>
+                <external-template-form-directive templateUrl="views/sample-view-1.html"></external-template-form-directive>
+        </div>
+
+    </div>
+</div>
+
+</body>
+</html>
