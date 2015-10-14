@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="Description" content="Angular JS 1.x Learning - ">
+    <title>Angular JS 1.x</title>
+
+    <link rel="stylesheet" type="text/css" href="../../assets/bootstrap/bootstrap.css"/>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="../../assets/lodash/lodash-min.js"></script>
+    <script type="text/javascript" src="../../assets/angular/angular.js"></script>
+    <script type="text/javascript" src="app.js"></script>
+
+    <script src="../../assets/prism/prism.js"></script>
+    <script src="../../assets/jquery-plugins/knob.js"></script>
+    <script src="../../assets/prism/prism.css"></script>
+
+</head>
+<body class="container" ng-app="myApp">
+
+<h3>
+    <a href='../../index.html'> <img src="../../assets/images/back-arrow.png" alt="Back To Home"/> </a>
+  Search Highlighter Directive
+</h3>
+<h5>In this example we are creating a directive which will highlight search term in a filtered set of records.</h5>
+<hr/>
+
+<div class="container" ng-controller="Controller1 as Ctrl">
+    <div class="row">
+        <div class="col-md-8">
+            <h4>HTML:</h4>
+            <!--<pre data-line style="overflow-x: hidden;">-->
+                <!--<code class="language-markup">-->
+
+                    <img src="../../assets/images/search-term-highlighter.PNG" alt="Search Term Highlighter"/>
+
+                <!--</code>-->
+            <!--</pre>-->
+
+            <h4>JavaScript:</h4>
+
+            <pre data-line>
+                <code class="language-javascript">
+
+            /////////////
+            //Angular App
+            ////////////
+            var myApp = angular.module("myApp", []);
+
+
+            /////////////
+            //Angular Controller
+            ////////////
+            myApp.controller('Controller1',[Controller1]);
+
+            function Controller1(){
+
+            }
+
+            /////////////
+            //Angular Directive
+            ////////////
+            myApp.directive('mySearchHighlighter',['$timeout',MySearchHighlighter]);
+
+            function MySearchHighlighter($timeout){
+                return {
+
+                    restrict: 'A',
+
+                    scope: {
+                    textMatch: '=mySearchHighlighter'
+                    },
+
+                    link: function (scope, element) {
+                        scope.$watch('textMatch', function (textMatch) {
+
+                        $timeout(function () {
+                            var list, regex;
+
+                            list = element.find("td").has("em");
+                            list.find("em").contents().unwrap();
+                            list.each(function () {
+
+                                var node = angular.element(this);
+                                node.text(_.map(node.contents(), function (n) {
+
+                                    return n.textContent;
+                                    }).join(""));
+
+                                });
+
+                                if (textMatch) {
+
+                                    regex = new RegExp(_.escapeRegExp(textMatch), "gi");
+
+                                    list = element
+                                    .find("td")
+                                    .contents()
+                                    .filter(function () {
+                                    return this.nodeType === 3 && this.textContent && regex.test(this.textContent);
+                                    })
+                                    .each(function () {
+
+                                        var node = angular.element(this);
+                                        var content = node.text();
+                                        content = content.replace(regex, '&lt;em&gt;$&&lt;/em&gt;');
+                                        node.replaceWith(content);
+
+                                    });
+
+                                }
+
+                            });
+
+                        });
+                    }
+
+                };
+
+            }
+
+
+
+
+                </code>
+              </pre>
+
+
+
+        </div>
+        <div class="col-md-4">
+            <h4>Result:</h4>
+            <input type="text" ng-model="searchTerm"/>
+
+            <table style="width: 100%;">
+                <thead>
+                   <tr>
+                       <td>S.No</td>
+                       <td>Name</td>
+                       <td>Gender</td>
+                   </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="item in Ctrl.names | filter:searchTerm " my-search-highlighter="searchTerm">
+                        <td>{{$index+1 }}</td>
+                        <td>{{item.name}}</td>
+                        <td>{{item.gender}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>
+
+<style>
+    em {
+        background: #ffff00;
+        font-weight: bold;
+        color: #000 !important;
+    }
+</style>
+
+</body>
+</html>
