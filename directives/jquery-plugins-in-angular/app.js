@@ -85,5 +85,34 @@
         }
     }
 
+    myApp.directive('alertify',[MyJqueryAlertify]);
+
+    function MyJqueryAlertify(){
+        return{
+            link:function(iScope,iElement,iAttribute){
+
+                var typeOfAlert = iAttribute.type;
+                var message =  iAttribute.message;
+
+                if(typeOfAlert==="success"){
+                    iElement.on('click',function(){
+                        alertify.set('notifier','position', 'top-right');
+                        alertify.success(message);
+                    });
+                }else if(typeOfAlert==="prompt"){
+                    iElement.on('click',function(){
+                        alertify.prompt(message).set('labels', {ok:'Alright!', cancel:'Naa!'});
+                    });
+                }else if(typeOfAlert==="confirm"){
+                    iElement.on('click',function(){
+                        alertify.confirm(message).set('labels', {ok:'Alright!', cancel:'Naa!'});
+                    });
+                }
+
+            }
+
+        }
+    }
+
 
 })();

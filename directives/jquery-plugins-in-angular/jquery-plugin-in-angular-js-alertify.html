@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="Description" content="Angular JS 1.x Learning - ">
+    <title>Angular JS 1.x</title>
+
+    <link rel="stylesheet" type="text/css" href="../../assets/bootstrap/bootstrap.css"/>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script type="text/javascript" src="../../assets/angular/angular.js"></script>
+    <script type="text/javascript" src="app.js"></script>
+
+    <script src="../../assets/prism/prism.js"></script>
+    <script src="../../bower_components/alertify.js/lib/alertify.js"></script>
+    <script src="../../assets/prism/prism.css"></script>
+
+    <link rel="stylesheet" href="../../bower_components/alertify.js/themes/alertify.core.css"/>
+    <link rel="stylesheet" href="../../bower_components/alertify.js/themes/alertify.bootstrap.css"/>
+    <link rel="stylesheet" href="../../bower_components/alertify.js/themes/alertify.default.css"/>
+
+</head>
+<body class="container" ng-app="myApp">
+
+<h3>
+    <a href='../../index.html'> <img src="../../assets/images/back-arrow.png" alt="Back To Home"/> </a>
+  Using jQuery Alertify Plugin in Angular JS
+</h3>
+<h5>In this example we are wrapping a jQuery Alertify plugin in Angular JS </h5>
+<hr/>
+
+<div class="container" ng-controller="Controller1 as Ctrl">
+    <div class="row">
+        <div class="col-md-8">
+            <h4>HTML:</h4>
+            <pre data-line>
+                <code class="language-markup">
+                    &lt;h4&gt;Result:&lt;/h4&gt;
+
+                </code>
+            </pre>
+
+            <h4>JavaScript:</h4>
+
+            <pre data-line>
+                <code class="language-javascript">
+
+            /////////////
+            //Angular App
+            ////////////
+            var myApp = angular.module("myApp", []);
+
+
+            /////////////
+            //Angular Controller
+            ////////////
+            myApp.controller('Controller1',[Controller1]);
+
+            function Controller1(){
+
+            }
+
+            /////////////
+            //Angular Directive
+            ////////////
+            myApp.directive('knob',[MyJqueryKnob]);
+
+            function MyJqueryKnob(){
+                return{
+                    restrict:'EA',
+                    require:'ngModel',
+                    link:function(iScope,iElement,iAttribute,ngModel){
+                            console.log(iAttribute.myJqueryAngularMashup1);
+
+        //change( ) callback is jQuery knob plugin's specific called automatically
+        //whenever the knob values changes
+
+                iElement.knob({
+                    fgColor:iAttribute.fgColor,
+                    change:function(newValue){
+
+        //Calling $apply and %setViewValue to change the actual ngModel value
+        //for this angular element.
+
+                    iScope.$apply(function(){
+                                    ngModel.$setViewValue(newValue);
+                                });
+
+                }
+
+        });
+
+
+        //If we want to 2 way binding from view to directive model,
+        //for example if we change value in text box, the knob changes its position
+        //and also the model gets upadted, we need to do the following:
+        //If we dont do the following
+
+        ngModel.$render=function(){
+
+        //calling the .val( ) here is a jQuery plugin specific thing. Chceck plugin documentation
+        //on how to set value for the specific jQuery plugin you are using.
+
+            iElement.val(ngModel.$viewValue)
+            .trigger('change');
+
+         }
+        }
+    }
+}
+
+                </code>
+              </pre>
+
+            <div class="alert alert-info">
+                Here I have integrated <a target='_blank' href='http://fabien-d.github.io/alertify.js/'><b>jQuery Alertify Plugin</b> with Angular JS using Angular Directives</a>
+            </div>
+
+        </div>
+        <div class="col-md-4">
+            <h4>Result:</h4>
+
+            <button alertify type="success" message="What the heck!! OMG!!!">Show Alert</button>
+            <button alertify type="prompt" message="WOW a prompt!!!">Call Prompt</button>
+            <button alertify type="confirm" message="WOW a a confirm box!!!">Call Confirm</button>
+
+        </div>
+
+    </div>
+</div>
+
+</body>
+</html>
